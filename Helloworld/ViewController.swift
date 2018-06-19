@@ -25,11 +25,29 @@ class ViewController: UIViewController {
             print(buttonTitle)
 //            label.text = buttonTitle
             if buttonTitle == "Login"{
+                
+                if usernameTxt.text!.isEmpty ||
+                    passwordTxt.text!.isEmpty
+                {
+                    displayAlertMessage(message: "Please fill all the fields");
+                    return;
+                }
+                
                 print("login action to be performaed")
                 let loginURL = "https://taskrapi.herokuapp.com/api/taskusers/login";
                 let loginParams:[String:String] = ["username": usernameTxt.text!,"password":passwordTxt.text!]
-                postLoginCall(url : loginURL,paramsDictionary : loginParams);
+                let res = postLoginCall(url : loginURL,paramsDictionary : loginParams);
                 
+                print(res)
+                let resultFail = "Login Failed"
+                print("res - " + res)
+                if res == resultFail  {
+                    print(res)
+                    displayAlertMessage(message: "Invaild login input");
+                    self.usernameTxt.text = ""
+                    self.passwordTxt.text = ""
+                    return;
+                }
                 
                 
             }
@@ -47,7 +65,7 @@ class ViewController: UIViewController {
     
     // Function to call Login
     
-    func postLoginCall(url : String,paramsDictionary : [String:String]){
+    func postLoginCall(url : String,paramsDictionary : [String:String]) -> String{
         let request = NSMutableURLRequest(url: NSURL(string: url)! as URL)
         request.httpMethod = "POST"
 //        let isUsername = NSRange textRange =[paramsDictionary["username"] rangeOfString:@"@"];
@@ -60,10 +78,10 @@ class ViewController: UIViewController {
         }
         
         
-        print(postString)
+//        print(postString)
         request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = postString.data(using: String.Encoding.utf8)
-        
+        var result = "";
         let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
             guard error == nil && data != nil else {                                                          // check for fundamental networking error
                 print("error=\(String(describing: error))")
@@ -72,19 +90,22 @@ class ViewController: UIViewController {
             
             do {
                 if let responseJSON = try JSONSerialization.jsonObject(with: data!) as? [String:AnyObject]{
-                    print(responseJSON)
+//                    print(responseJSON)
                     if responseJSON["error"] != nil{
                         print(responseJSON["error"]!)
                         print("Login Failed")
-                        self.displayAlertMessage(message: "Login Failed");
-                        self.usernameTxt.text = ""
-                        self.passwordTxt.text = ""
+//                        self.displayAlertMessage(message: "Login Failed");
+//                        self.usernameTxt.text = ""
+//                        self.passwordTxt.text = ""
+                        result = "Login Failed"
+                        return
                     }else{
                         print(responseJSON["id"]!)
                         print("Login Successful")
-                        
-                        let vc = MainViewController()
-                        self.navigationController?.pushViewController(vc, animated: true)
+                        result = "Login Successful"
+                        return
+//                        let vc = MainViewController()
+//                        self.navigationController?.pushViewController(vc, animated: true)
                     }
                     
 //                    self.response1 = responseJSON["status"]! as! Int
@@ -110,7 +131,12 @@ class ViewController: UIViewController {
                 print("Error -> \(error)")
             }
         }
+        print("1")
         task.resume()
+        while result.isEmpty {
+        }
+        print("2")
+        return result
     }
     func displayAlertMessage(message:String){
         let myAlert = UIAlertController(title: "Task Manager", message: message, preferredStyle: UIAlertControllerStyle.alert);
