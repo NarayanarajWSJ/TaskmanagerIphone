@@ -13,13 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordTxt: UITextField!
     @IBOutlet weak var label: UILabel!
     @IBAction func buttonClicked(_ sender: UIButton) {
-//        var myString = String(self.rand_creation(1, second: 9))
-        
-//        let value = sender.tag
-//        let val = sender.currentTitle
-//        let val = sender.titleLabel!.text
-//        print("button clicked \(val)")
-//        print(val)
+
         
         if let buttonTitle = sender.title(for: .normal) {
             print(buttonTitle)
