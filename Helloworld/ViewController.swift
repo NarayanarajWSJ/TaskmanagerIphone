@@ -128,6 +128,9 @@ class ViewController: UIViewController {
         print("1")
         task.resume()
         while result.isEmpty {
+            sleep(1)
+            print("asdas")
+
         }
         print("2")
         return result
