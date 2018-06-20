@@ -30,8 +30,11 @@ class ViewController: UIViewController {
                 print("login action to be performaed")
                 let loginURL = "https://taskrapi.herokuapp.com/api/taskusers/login";
                 let loginParams:[String:String] = ["username": usernameTxt.text!,"password":passwordTxt.text!]
-                let res = postLoginCall(url : loginURL,paramsDictionary : loginParams);
                 
+               
+//
+                let res = postLoginCall(url : loginURL,paramsDictionary : loginParams);
+
                 print(res)
                 let resultFail = "Login Failed"
                 print("res - " + res)
@@ -55,11 +58,12 @@ class ViewController: UIViewController {
         }else{
             print("button clicked")
         }
+        print("fasd")
     }
     
     // Function to call Login
     
-    func postLoginCall(url : String,paramsDictionary : [String:String]) -> String{
+    func postLoginCall(url : String,paramsDictionary : [String:String]) -> String {
         let request = NSMutableURLRequest(url: NSURL(string: url)! as URL)
         request.httpMethod = "POST"
 //        let isUsername = NSRange textRange =[paramsDictionary["username"] rangeOfString:@"@"];
@@ -76,6 +80,8 @@ class ViewController: UIViewController {
         request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = postString.data(using: String.Encoding.utf8)
         var result = "";
+        let group = DispatchGroup()
+        
         let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
             guard error == nil && data != nil else {                                                          // check for fundamental networking error
                 print("error=\(String(describing: error))")
@@ -92,46 +98,34 @@ class ViewController: UIViewController {
 //                        self.usernameTxt.text = ""
 //                        self.passwordTxt.text = ""
                         result = "Login Failed"
+                        group.leave()
                         return
                     }else{
                         print(responseJSON["id"]!)
                         print("Login Successful")
                         result = "Login Successful"
+//                        completion(true)
+                        group.leave()
                         return
 //                        let vc = MainViewController()
 //                        self.navigationController?.pushViewController(vc, animated: true)
                     }
-                    
-//                    self.response1 = responseJSON["status"]! as! Int
-//                    print(self.response1)
-                    //Check response from the sever
-//                    if self.response1 == 200
-//                    {
-//                        OperationQueue.main.addOperation {
-//                            //API call Successful and can perform other operatios
-//                            
-//                        }
-//                    }
-//                    else
-//                    {
-//                        OperationQueue.main.addOperation {
-//                            //API call failed and perform other operations
-//                            
-//                        }
-//                    }
                 }
             }
             catch {
                 print("Error -> \(error)")
+//                completion(false)
             }
         }
         print("1")
+       group.enter()
         task.resume()
-        while result.isEmpty {
-            sleep(1)
-            print("asdas")
-
-        }
+       group.wait()
+//        while result.isEmpty {
+//            sleep(1)
+//            print("asdas")
+//
+//        }
         print("2")
         return result
     }
