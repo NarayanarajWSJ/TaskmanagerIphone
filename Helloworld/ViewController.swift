@@ -87,19 +87,20 @@ class ViewController: UIViewController {
                     loginParams["username"] = usernameTxt.text!
                 }
 //
-                let res1 = apiURL.postCall(url :apiURL.loginURL,paramsDictionary : loginParams)
-                print("res1 : ")
-                for item in res1 {
-//                    if(item.value.isKind(of:) )
-//
-//                    else if(item.value.isKind(of: Int) ){
-//                        print(item.key + " - " + String(item.value as! Int))
-//                    }
-                    print(item.key)
-                    print(item.value)
-                    print("-----")
-                }
-                print("Completed")
+//                let res1 = apiURL.postCall(url :apiURL.loginURL,paramsDictionary : loginParams)
+//                print("res1 : ")
+//                for item in res1 {
+////                    if(item.value.isKind(of:) )
+////
+////                    else if(item.value.isKind(of: Int) ){
+////                        print(item.key + " - " + String(item.value as! Int))
+////                    }
+//                    print(item.key)
+//                    print(item.value)
+//                    print("-----")
+//                }
+//                print("Completed")
+                
                 let res = postLoginCall(url : apiURL.loginURL,paramsDictionary : loginParams);
 
                 
