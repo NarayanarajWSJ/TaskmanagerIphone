@@ -12,20 +12,33 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("Logged userId : " + String(loggerUser.userId) )
+        print("Logged access : " + loggerUser.accessId )
         // Do any additional setup after loading the view.
+        
+        // Call the logger user tasks
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        print("Logged userId" + String(loggerUser.userId) )
+        print("Logged access" + loggerUser.accessId )
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func actionLogout(_ sender: Any) {
+        print("Logged userId" + String(loggerUser.userId) )
+        print("Logged access" + loggerUser.accessId )
         let vc = ViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func sampleclocked(_ sender: Any) {
+        print("Entered")
+        print("Logged userId" + String(loggerUser.userId) )
+        print("Logged access" + loggerUser.accessId )
+    }
     /*
     // MARK: - Navigation
 

@@ -16,6 +16,7 @@ class registerViewController: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtRePassword: UITextField!
     
+    @IBOutlet weak var txtusername: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,4 +65,58 @@ class registerViewController: UIViewController {
         
         self.present(myAlert, animated: true, completion: nil);
     }
+    
+    func postRegisterCall(url : String,paramsDictionary : [String:String]) -> String {
+        let request = NSMutableURLRequest(url: NSURL(string: url)! as URL)
+        request.httpMethod = "POST"
+        
+        var postString : String = ""
+        if paramsDictionary["username"]!.range(of:".com") != nil {
+            postString = "email=\( paramsDictionary["username"]!)&password=\( paramsDictionary["password"]!)"
+        }else{
+            postString = "username=\( paramsDictionary["username"]!)&password=\( paramsDictionary["password"]!)"
+        }
+        request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        var result = "";
+        let group = DispatchGroup()
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+            guard error == nil && data != nil else {                                                          // check for fundamental networking error
+                print("error=\(String(describing: error))")
+                return
+            }
+            
+            do {
+                if let responseJSON = try JSONSerialization.jsonObject(with: data!) as? [String:AnyObject]{
+                    //                    print(responseJSON)
+                    if responseJSON["error"] != nil{
+                        print(responseJSON["error"]!)
+                        print("Login Failed")
+                        result = "Login Failed"
+                        group.leave()
+                        return
+                    }else{
+                        print(responseJSON["id"]!)
+                        print("Login Successful")
+                        result = "Login Successful"
+                        //                        completion(true)
+                        loggerUser.accessId = responseJSON["id"] as! String
+                        loggerUser.userId = responseJSON["userId"] as! Int
+                        group.leave()
+                        return
+                    }
+                }
+            }
+            catch {
+                print("Error -> \(error)")
+            }
+        }
+        group.enter()
+        task.resume()
+        group.wait()
+        
+        return result
+    }
+    
 }
