@@ -15,6 +15,7 @@
 		BE0E45F420D167510025CB60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE0E45F220D167510025CB60 /* LaunchScreen.storyboard */; };
 		BE0E45FF20D167510025CB60 /* HelloworldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E45FE20D167510025CB60 /* HelloworldTests.swift */; };
 		BE0E460A20D167520025CB60 /* HelloworldUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E460920D167520025CB60 /* HelloworldUITests.swift */; };
+		BE19009320DB9AAA0033E76B /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = BE19009220DB9AAA0033E76B /* AppIcon.appiconset */; };
 		BEA59E4420D755E600FFD921 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA59E4320D755E600FFD921 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		BE0E460520D167510025CB60 /* HelloworldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloworldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE0E460920D167520025CB60 /* HelloworldUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloworldUITests.swift; sourceTree = "<group>"; };
 		BE0E460B20D167520025CB60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE19009220DB9AAA0033E76B /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppIcon.appiconset; sourceTree = "<group>"; };
 		BEA59E4320D755E600FFD921 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 		BE0E45DD20D1674F0025CB60 = {
 			isa = PBXGroup;
 			children = (
+				BE19009120DB9A820033E76B /* AppIcon */,
 				BE0E45E820D167510025CB60 /* Helloworld */,
 				BE0E45FD20D167510025CB60 /* HelloworldTests */,
 				BE0E460820D167510025CB60 /* HelloworldUITests */,
@@ -129,6 +132,14 @@
 				BE0E460B20D167520025CB60 /* Info.plist */,
 			);
 			path = HelloworldUITests;
+			sourceTree = "<group>";
+		};
+		BE19009120DB9A820033E76B /* AppIcon */ = {
+			isa = PBXGroup;
+			children = (
+				BE19009220DB9AAA0033E76B /* AppIcon.appiconset */,
+			);
+			path = AppIcon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE19009320DB9AAA0033E76B /* AppIcon.appiconset in Resources */,
 				BE0E45F420D167510025CB60 /* LaunchScreen.storyboard in Resources */,
 				BE0E45F120D167510025CB60 /* Assets.xcassets in Resources */,
 				BE0E45EF20D167510025CB60 /* Main.storyboard in Resources */,
