@@ -3,7 +3,51 @@
 import UIKit
 
 struct apiURL{
-    static let loginURL = "https://taskrapii.herokuapp.com/api/taskusers/login";
+    static let loginURL = "https://taskrapi.herokuapp.com/api/taskusers/login";
+    
+    static func postCall(url : String,paramsDictionary : [String:String]) -> [String:AnyObject] {
+        let request = NSMutableURLRequest(url: NSURL(string: url)! as URL)
+        request.httpMethod = "POST"
+        var postString : String = ""
+        for item in paramsDictionary {
+            print(item.key + " == " + item.value)
+            postString += item.key + "=" + item.value + "&"
+        }
+        print(postString)
+        request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        var result :[String:AnyObject] = [:];
+        let group = DispatchGroup()
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+            guard error == nil && data != nil else {                                                          // check for fundamental networking error
+                print("error=\(String(describing: error))")
+                result["error"] = String(describing: error) as AnyObject
+                group.leave()
+                return
+            }
+            
+            do {
+                if let responseJSON = try JSONSerialization.jsonObject(with: data!) as? [String:AnyObject]{
+                    print(responseJSON)
+                    result = responseJSON
+                     group.leave()
+                }
+            }
+            catch {
+                print("Error -> \(error)")
+                result["error"] = String(describing : error) as AnyObject
+                group.leave()
+                return
+            }
+        }
+        group.enter()
+        task.resume()
+        group.wait()
+        
+        return result
+    }
+    
 }
 struct loggerUser {
     static var accessId = ""
@@ -43,8 +87,23 @@ class ViewController: UIViewController {
                     loginParams["username"] = usernameTxt.text!
                 }
 //
+                let res1 = apiURL.postCall(url :apiURL.loginURL,paramsDictionary : loginParams)
+                print("res1 : ")
+                for item in res1 {
+//                    if(item.value.isKind(of:) )
+//
+//                    else if(item.value.isKind(of: Int) ){
+//                        print(item.key + " - " + String(item.value as! Int))
+//                    }
+                    print(item.key)
+                    print(item.value)
+                    print("-----")
+                }
+                print("Completed")
                 let res = postLoginCall(url : apiURL.loginURL,paramsDictionary : loginParams);
 
+                
+                
                 print(res)
                 let resultFail = "Login Failed"
                 print("res - " + res)
@@ -64,13 +123,6 @@ class ViewController: UIViewController {
                 
                 
             }
-//            else if(buttonTitle == "Register"){
-////                print("username = "+ usernameTxt.text + ": Password = " + passwordTxt.text)
-//                usernameTxt.text = ""
-//                passwordTxt.text = ""
-//            
-//            }
-            
         }else{
             print("button clicked")
         }
