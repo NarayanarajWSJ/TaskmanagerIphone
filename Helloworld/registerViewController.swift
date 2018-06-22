@@ -13,6 +13,7 @@ class registerViewController: UIViewController {
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtlastname: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
+    @IBOutlet weak var txtUsername: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtRePassword: UITextField!
     
@@ -38,14 +39,23 @@ class registerViewController: UIViewController {
         let usrEmail = txtEmail.text
         let usrPwd = txtPassword.text
         let usrRePwd = txtRePassword.text
+        let usrname = txtUsername.text
         
         if usrFirstName!.isEmpty ||
             usrLastName!.isEmpty ||
             usrEmail!.isEmpty ||
             usrPwd!.isEmpty ||
-            usrRePwd!.isEmpty
+            usrRePwd!.isEmpty ||
+            usrname!.isEmpty
         {
             displayAlertMessage(message: "Please fill all the fields");
+            return;
+        }
+        if (!isValidEmail(testStr: usrEmail!)){
+            displayAlertMessage(message: "E-Mail is not in valid format");
+            txtPassword.text = ""
+            txtRePassword.text = ""
+            txtEmail.text = ""
             return;
         }
         if usrPwd != usrRePwd {
@@ -55,6 +65,13 @@ class registerViewController: UIViewController {
             return;
         }
         
+        
+    }
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
     }
     func displayAlertMessage(message:String){
         let myAlert = UIAlertController(title: "Task Manager", message: message, preferredStyle: UIAlertControllerStyle.alert);

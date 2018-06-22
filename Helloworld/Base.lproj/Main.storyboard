@@ -224,6 +224,7 @@
                         <outlet property="txtFirstName" destination="nLD-2n-zfG" id="zDP-zE-6BA"/>
                         <outlet property="txtPassword" destination="nW9-MD-H2O" id="byQ-Ud-ije"/>
                         <outlet property="txtRePassword" destination="8ia-g5-Eri" id="3HQ-Es-dym"/>
+                        <outlet property="txtUsername" destination="pg8-XT-Vxa" id="yZN-CT-O7e"/>
                         <outlet property="txtlastname" destination="Brt-Qe-Lgu" id="hoR-d0-pjP"/>
                         <outlet property="txtusername" destination="pg8-XT-Vxa" id="LzU-0f-ZNu"/>
                     </connections>
