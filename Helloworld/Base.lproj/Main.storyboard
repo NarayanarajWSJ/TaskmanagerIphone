@@ -262,22 +262,6 @@
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="logoutSegue" id="sGp-2U-pVm"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YAJ-0t-7th">
-                                <rect key="frame" x="174" y="46" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JyJ-IF-hMm">
-                                <rect key="frame" x="132" y="284" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="sampleclocked:" destination="cKh-Pk-ipP" eventType="touchUpInside" id="4bA-Bz-ZyN"/>
-                                    <action selector="sampleclocked:" destination="vhD-aT-4A9" eventType="touchUpInside" id="xbn-ya-Wb1"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.57799496117982718" green="0.53443912655820958" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
